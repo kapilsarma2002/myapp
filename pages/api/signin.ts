@@ -12,14 +12,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   })
 
+  // console.log(user)
+
   if(user && bcrypt.compareSync(password, user.password)) {
-    const token = jwt.sign({
-      id: user.id,
-      email: user.email,
-      time: Date.now(),
-    }, 'hello', {
-      expiresIn: '8h',
-    })
+    const token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+        time: Date.now(),
+      }, 'hello',
+      {
+        expiresIn: '8h',
+      }
+    )
 
     res.setHeader(
       'Set-Cookie',

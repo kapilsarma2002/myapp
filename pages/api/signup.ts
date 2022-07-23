@@ -25,9 +25,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const token = jwt.sign(
     {
-    email: user.email,
-    id: user.id,
-    time: Date.now()
+      email: user.email,
+      id: user.id,
+      time: Date.now()
     },
     'hello',
     {

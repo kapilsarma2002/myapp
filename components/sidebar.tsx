@@ -1,13 +1,11 @@
 import NextImage from "next/image";
 import NextLink from "next/link";
+import { usePlaylist } from "../lib/hooks";
 import {
 	Box,
 	List,
 	ListItem,
-	ListIcon,
 	Divider,
-	Center,
-	LinkBox,
 	LinkOverlay
 } from "@chakra-ui/layout";
 import {
@@ -50,9 +48,12 @@ const musicMenu = [
 	}
 ];
 
-const playLists = new Array(50).fill(1).map((_,i) => `Playlist ${i+1}`);
+// const playlists = new Array(50).fill(1).map((_,i) => `Playlist ${i+1}`)
 
 const Sidebar = () => {
+	
+	const { playlists } = usePlaylist()
+	
 	return (
 		<Box width="100%" height="calc(100vh - 100px)" paddingX = "5px" bg="black" color="gray">
 			<Box paddingY="20px" height="100%">
@@ -72,12 +73,12 @@ const Sidebar = () => {
 				{/* playlists */}
 				<Box height="63%" paddingY="20px" overflow="auto">
 					<List spacing={2}>
-						{playLists.map((playlist) => {
+						{playlists.map((playlist) => {
 							return (
-								<ListItem paddingX="20px" key={playlist}>
+								<ListItem paddingX="20px" key={playlist.id}>
 									<NextLink href="/" passHref>
 										<LinkOverlay>
-											{playlist}
+											{playlist.name}
 										</LinkOverlay>
 									</NextLink>
 								</ListItem>
