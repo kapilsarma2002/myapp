@@ -6,6 +6,7 @@ import {
 	List,
 	ListItem,
 	Divider,
+	LinkBox,
 	LinkOverlay
 } from "@chakra-ui/layout";
 import {
@@ -48,8 +49,6 @@ const musicMenu = [
 	}
 ];
 
-// const playlists = new Array(50).fill(1).map((_,i) => `Playlist ${i+1}`)
-
 const Sidebar = () => {
 	
 	const { playlists } = usePlaylist()
@@ -63,7 +62,7 @@ const Sidebar = () => {
 				</Box>
 				{/* navigation menu  */}
 				<Box marginBottom="20px">
-					<Menu menu={navMenu}/>
+					<Menu menu={navMenu} />
 				</Box>
 				{/* music menu */}
 				<Box marginTop="20px" marginBottom="20px">
@@ -71,21 +70,25 @@ const Sidebar = () => {
 				</Box>
 				<Divider color="gray.800"/>
 				{/* playlists */}
-				<Box height="63%" paddingY="20px" overflow="auto">
-					<List spacing={2}>
-						{playlists.map((playlist) => {
-							return (
-								<ListItem paddingX="20px" key={playlist.id}>
-									<NextLink href="/" passHref>
-										<LinkOverlay>
-											{playlist.name}
-										</LinkOverlay>
-									</NextLink>
-								</ListItem>
-							)
-						})}
-					</List>
-				</Box>
+				<Box height="66%" overflowY="auto" paddingY="20px">
+          <List spacing={2}>
+            {playlists.map((playlist) => (
+              <ListItem paddingX="20px" key={playlist.id}>
+                <LinkBox>
+                  <NextLink
+                    href={{
+                      pathname: '/playlist/[id]',
+                      query: { id: playlist.id },
+                    }}
+                    passHref
+                  >
+                    <LinkOverlay>{playlist.name}</LinkOverlay>
+                  </NextLink>
+                </LinkBox>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
 			</Box>
 		</Box>
 	)

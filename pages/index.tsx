@@ -4,15 +4,16 @@ import prisma from '../lib/prisma'
 import styles from '../styles/Home.module.css'
 import {Box, Text, Flex} from '@chakra-ui/layout'
 import { Image } from '@chakra-ui/react'
+import { useMe } from '../lib/hooks'
 
 const Home = ({artists}) => {
-  // console.log(artists)
+  const { user } = useMe()
   return (
     <GradientLayout
       color='purple'
       subtitle='profile'
-      title='Kapil Sarma'
-      description='15 public playlists'
+      title={`${user?.firstName} ${user?.lastName}`}
+      description={`${user?.playlistCount} public playlists `}
       image='kapil.jpeg'
       roundImage
     >
